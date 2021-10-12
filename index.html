@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-tilelayer-wmts.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/suiviVilleLaRochelleAACdeFraisebois_1.js"></script>
+        <script src="data/SuiviqualiteauxsuperficiellescompilationIIBSN_2.js"></script>
+        <script src="data/Stationscoursdeaunaiadesanalysesprsentes_3.js"></script>
+        <script src="data/PrimtreIIBSN_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[46.039942676852405,-1.3890655032186794],[46.73999014783712,0.32797883165440067]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_PlanIGNv2_0');
+        map.getPane('pane_PlanIGNv2_0').style.zIndex = 400;
+        var layer_PlanIGNv2_0 = L.tileLayer.wmts('https://wxs.ign.fr/cartes/geoportail/wmts', {
+            pane: 'pane_PlanIGNv2_0',
+            layer: 'GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2',
+            tilematrixSet: 'PM',
+            format: 'image/png',
+            style: 'normal',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            opacity: 0.47,
+            attribution: '',
+        });
+        map.addLayer(layer_PlanIGNv2_0);
+        function pop_suiviVilleLaRochelleAACdeFraisebois_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ID1</th>\
+                        <td>' + (feature.properties['ID1'] !== null ? autolinker.link(feature.properties['ID1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Num_point</th>\
+                        <td>' + (feature.properties['Num_point'] !== null ? autolinker.link(feature.properties['Num_point'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">point_dire</th>\
+                        <td>' + (feature.properties['point_dire'] !== null ? autolinker.link(feature.properties['point_dire'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Site_du_pr</th>\
+                        <td>' + (feature.properties['Site_du_pr'] !== null ? autolinker.link(feature.properties['Site_du_pr'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Riviere</th>\
+                        <td>' + (feature.properties['Riviere'] !== null ? autolinker.link(feature.properties['Riviere'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Photo_1</th>\
+                        <td>' + (feature.properties['Photo_1'] !== null ? autolinker.link(feature.properties['Photo_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Photo_2</th>\
+                        <td>' + (feature.properties['Photo_2'] !== null ? autolinker.link(feature.properties['Photo_2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">GMRotation</th>\
+                        <td>' + (feature.properties['GMRotation'] !== null ? autolinker.link(feature.properties['GMRotation'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_suiviVilleLaRochelleAACdeFraisebois_1_0() {
+            return {
+                pane: 'pane_suiviVilleLaRochelleAACdeFraisebois_1',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(172,172,172,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_suiviVilleLaRochelleAACdeFraisebois_1');
+        map.getPane('pane_suiviVilleLaRochelleAACdeFraisebois_1').style.zIndex = 401;
+        map.getPane('pane_suiviVilleLaRochelleAACdeFraisebois_1').style['mix-blend-mode'] = 'normal';
+        var layer_suiviVilleLaRochelleAACdeFraisebois_1 = new L.geoJson(json_suiviVilleLaRochelleAACdeFraisebois_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_suiviVilleLaRochelleAACdeFraisebois_1',
+            layerName: 'layer_suiviVilleLaRochelleAACdeFraisebois_1',
+            pane: 'pane_suiviVilleLaRochelleAACdeFraisebois_1',
+            onEachFeature: pop_suiviVilleLaRochelleAACdeFraisebois_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_suiviVilleLaRochelleAACdeFraisebois_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_suiviVilleLaRochelleAACdeFraisebois_1);
+        map.addLayer(layer_suiviVilleLaRochelleAACdeFraisebois_1);
+        function pop_SuiviqualiteauxsuperficiellescompilationIIBSN_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Sta_Sous_T</th>\
+                        <td>' + (feature.properties['Sta_Sous_T'] !== null ? autolinker.link(feature.properties['Sta_Sous_T'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sta_Numero</th>\
+                        <td>' + (feature.properties['Sta_Numero'] !== null ? autolinker.link(feature.properties['Sta_Numero'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sta_Locali</th>\
+                        <td>' + (feature.properties['Sta_Locali'] !== null ? autolinker.link(feature.properties['Sta_Locali'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sta_Loca_1</th>\
+                        <td>' + (feature.properties['Sta_Loca_1'] !== null ? autolinker.link(feature.properties['Sta_Loca_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sta_HER_ni</th>\
+                        <td>' + (feature.properties['Sta_HER_ni'] !== null ? autolinker.link(feature.properties['Sta_HER_ni'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sta_HER__1</th>\
+                        <td>' + (feature.properties['Sta_HER__1'] !== null ? autolinker.link(feature.properties['Sta_HER__1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">COMSTATION</th>\
+                        <td>' + (feature.properties['COMSTATION'] !== null ? autolinker.link(feature.properties['COMSTATION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Fi_Finalit</th>\
+                        <td>' + (feature.properties['Fi_Finalit'] !== null ? autolinker.link(feature.properties['Fi_Finalit'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Appart_Reg</th>\
+                        <td>' + (feature.properties['Appart_Reg'] !== null ? autolinker.link(feature.properties['Appart_Reg'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Appart_Dep</th>\
+                        <td>' + (feature.properties['Appart_Dep'] !== null ? autolinker.link(feature.properties['Appart_Dep'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Appart_Com</th>\
+                        <td>' + (feature.properties['Appart_Com'] !== null ? autolinker.link(feature.properties['Appart_Com'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ouvrage_Co</th>\
+                        <td>' + (feature.properties['Ouvrage_Co'] !== null ? autolinker.link(feature.properties['Ouvrage_Co'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ouvrage__1</th>\
+                        <td>' + (feature.properties['Ouvrage__1'] !== null ? autolinker.link(feature.properties['Ouvrage__1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cours_Eau_</th>\
+                        <td>' + (feature.properties['Cours_Eau_'] !== null ? autolinker.link(feature.properties['Cours_Eau_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Cours_Eau1</th>\
+                        <td>' + (feature.properties['Cours_Eau1'] !== null ? autolinker.link(feature.properties['Cours_Eau1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Plan_Eau_N</th>\
+                        <td>' + (feature.properties['Plan_Eau_N'] !== null ? autolinker.link(feature.properties['Plan_Eau_N'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Masse_Eau_</th>\
+                        <td>' + (feature.properties['Masse_Eau_'] !== null ? autolinker.link(feature.properties['Masse_Eau_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Masse_Eau1</th>\
+                        <td>' + (feature.properties['Masse_Eau1'] !== null ? autolinker.link(feature.properties['Masse_Eau1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">num_stat</th>\
+                        <td>' + (feature.properties['num_stat'] !== null ? autolinker.link(feature.properties['num_stat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">reseau</th>\
+                        <td>' + (feature.properties['reseau'] !== null ? autolinker.link(feature.properties['reseau'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Source</th>\
+                        <td>' + (feature.properties['Source'] !== null ? autolinker.link(feature.properties['Source'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PRODUCTEUR</th>\
+                        <td>' + (feature.properties['PRODUCTEUR'] !== null ? autolinker.link(feature.properties['PRODUCTEUR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">first_pc</th>\
+                        <td>' + (feature.properties['first_pc'] !== null ? autolinker.link(feature.properties['first_pc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">last_pc</th>\
+                        <td>' + (feature.properties['last_pc'] !== null ? autolinker.link(feature.properties['last_pc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">first_bio</th>\
+                        <td>' + (feature.properties['first_bio'] !== null ? autolinker.link(feature.properties['first_bio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">last_bio</th>\
+                        <td>' + (feature.properties['last_bio'] !== null ? autolinker.link(feature.properties['last_bio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">bassinSAGE</th>\
+                        <td>' + (feature.properties['bassinSAGE'] !== null ? autolinker.link(feature.properties['bassinSAGE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MAJ</th>\
+                        <td>' + (feature.properties['MAJ'] !== null ? autolinker.link(feature.properties['MAJ'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">irregulier</th>\
+                        <td>' + (feature.properties['irregulier'] !== null ? autolinker.link(feature.properties['irregulier'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">freqAn_pes</th>\
+                        <td>' + (feature.properties['freqAn_pes'] !== null ? autolinker.link(feature.properties['freqAn_pes'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">hydrobio</th>\
+                        <td>' + (feature.properties['hydrobio'] !== null ? autolinker.link(feature.properties['hydrobio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">frqAn_bact</th>\
+                        <td>' + (feature.properties['frqAn_bact'] !== null ? autolinker.link(feature.properties['frqAn_bact'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">freqAn_Pc</th>\
+                        <td>' + (feature.properties['freqAn_Pc'] !== null ? autolinker.link(feature.properties['freqAn_Pc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">arrêt</th>\
+                        <td>' + (feature.properties['arrêt'] !== null ? autolinker.link(feature.properties['arrêt'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FREQ_PRIO</th>\
+                        <td>' + (feature.properties['FREQ_PRIO'] !== null ? autolinker.link(feature.properties['FREQ_PRIO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Remarque</th>\
+                        <td>' + (feature.properties['Remarque'] !== null ? autolinker.link(feature.properties['Remarque'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SuiviqualiteauxsuperficiellescompilationIIBSN_2_0() {
+            return {
+                pane: 'pane_SuiviqualiteauxsuperficiellescompilationIIBSN_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(172,172,172,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_SuiviqualiteauxsuperficiellescompilationIIBSN_2');
+        map.getPane('pane_SuiviqualiteauxsuperficiellescompilationIIBSN_2').style.zIndex = 402;
+        map.getPane('pane_SuiviqualiteauxsuperficiellescompilationIIBSN_2').style['mix-blend-mode'] = 'normal';
+        var layer_SuiviqualiteauxsuperficiellescompilationIIBSN_2 = new L.geoJson(json_SuiviqualiteauxsuperficiellescompilationIIBSN_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_SuiviqualiteauxsuperficiellescompilationIIBSN_2',
+            layerName: 'layer_SuiviqualiteauxsuperficiellescompilationIIBSN_2',
+            pane: 'pane_SuiviqualiteauxsuperficiellescompilationIIBSN_2',
+            onEachFeature: pop_SuiviqualiteauxsuperficiellescompilationIIBSN_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_SuiviqualiteauxsuperficiellescompilationIIBSN_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_SuiviqualiteauxsuperficiellescompilationIIBSN_2);
+        map.addLayer(layer_SuiviqualiteauxsuperficiellescompilationIIBSN_2);
+        function pop_Stationscoursdeaunaiadesanalysesprsentes_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">code_station</th>\
+                        <td>' + (feature.properties['code_station'] !== null ? autolinker.link(feature.properties['code_station'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">libelle_station</th>\
+                        <td>' + (feature.properties['libelle_station'] !== null ? autolinker.link(feature.properties['libelle_station'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">nom_resau</th>\
+                        <td>' + (feature.properties['nom_resau'] !== null ? autolinker.link(feature.properties['nom_resau'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">id_objetgeo</th>\
+                        <td>' + (feature.properties['id_objetgeo'] !== null ? autolinker.link(feature.properties['id_objetgeo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">analyse</th>\
+                        <td>' + (feature.properties['analyse'] !== null ? autolinker.link(feature.properties['analyse'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Stationscoursdeaunaiadesanalysesprsentes_3_0(feature) {
+            switch(String(feature.properties['analyse'])) {
+                case 'oui':
+                    return {
+                pane: 'pane_Stationscoursdeaunaiadesanalysesprsentes_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(90,134,46,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(157,236,82,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'non':
+                    return {
+                pane: 'pane_Stationscoursdeaunaiadesanalysesprsentes_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(158,130,103,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,127,0,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Stationscoursdeaunaiadesanalysesprsentes_3');
+        map.getPane('pane_Stationscoursdeaunaiadesanalysesprsentes_3').style.zIndex = 403;
+        map.getPane('pane_Stationscoursdeaunaiadesanalysesprsentes_3').style['mix-blend-mode'] = 'normal';
+        var layer_Stationscoursdeaunaiadesanalysesprsentes_3 = new L.geoJson(json_Stationscoursdeaunaiadesanalysesprsentes_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Stationscoursdeaunaiadesanalysesprsentes_3',
+            layerName: 'layer_Stationscoursdeaunaiadesanalysesprsentes_3',
+            pane: 'pane_Stationscoursdeaunaiadesanalysesprsentes_3',
+            onEachFeature: pop_Stationscoursdeaunaiadesanalysesprsentes_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Stationscoursdeaunaiadesanalysesprsentes_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Stationscoursdeaunaiadesanalysesprsentes_3);
+        map.addLayer(layer_Stationscoursdeaunaiadesanalysesprsentes_3);
+        function pop_PrimtreIIBSN_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_objetgeo'] !== null ? autolinker.link(feature.properties['id_objetgeo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['objetgeo'] !== null ? autolinker.link(feature.properties['objetgeo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['detail_req_geo'] !== null ? autolinker.link(feature.properties['detail_req_geo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_sys_carte'] !== null ? autolinker.link(feature.properties['id_sys_carte'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['commentaire'] !== null ? autolinker.link(feature.properties['commentaire'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['conv_obs'] !== null ? autolinker.link(feature.properties['conv_obs'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link_logo_structure'] !== null ? autolinker.link(feature.properties['link_logo_structure'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['link_web_site_structure'] !== null ? autolinker.link(feature.properties['link_web_site_structure'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_PrimtreIIBSN_4_0() {
+            return {
+                pane: 'pane_PrimtreIIBSN_4',
+                opacity: 1,
+                color: 'rgba(185,97,191,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_PrimtreIIBSN_4');
+        map.getPane('pane_PrimtreIIBSN_4').style.zIndex = 404;
+        map.getPane('pane_PrimtreIIBSN_4').style['mix-blend-mode'] = 'normal';
+        var layer_PrimtreIIBSN_4 = new L.geoJson(json_PrimtreIIBSN_4, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_PrimtreIIBSN_4',
+            layerName: 'layer_PrimtreIIBSN_4',
+            pane: 'pane_PrimtreIIBSN_4',
+            onEachFeature: pop_PrimtreIIBSN_4,
+            style: style_PrimtreIIBSN_4_0,
+        });
+        bounds_group.addLayer(layer_PrimtreIIBSN_4);
+        map.addLayer(layer_PrimtreIIBSN_4);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/PrimtreIIBSN_4.png" /> Périmètre IIBSN': layer_PrimtreIIBSN_4,'Stations cours d\'eau (naiades) : analyses présentes ?<br /><table><tr><td style="text-align: center;"><img src="legend/Stationscoursdeaunaiadesanalysesprsentes_3_oui0.png" /></td><td>oui</td></tr><tr><td style="text-align: center;"><img src="legend/Stationscoursdeaunaiadesanalysesprsentes_3_non1.png" /></td><td>non</td></tr></table>': layer_Stationscoursdeaunaiadesanalysesprsentes_3,'<img src="legend/SuiviqualiteauxsuperficiellescompilationIIBSN_2.png" /> Suivi qualité eaux superficielles (compilation IIBSN)': layer_SuiviqualiteauxsuperficiellescompilationIIBSN_2,'<img src="legend/suiviVilleLaRochelleAACdeFraisebois_1.png" /> suivi Ville La Rochelle (AAC de Fraise bois )': layer_suiviVilleLaRochelleAACdeFraisebois_1,"Plan IGN v2": layer_PlanIGNv2_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        resetLabels([layer_suiviVilleLaRochelleAACdeFraisebois_1,layer_SuiviqualiteauxsuperficiellescompilationIIBSN_2]);
+        map.on("zoomend", function(){
+            resetLabels([layer_suiviVilleLaRochelleAACdeFraisebois_1,layer_SuiviqualiteauxsuperficiellescompilationIIBSN_2]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_suiviVilleLaRochelleAACdeFraisebois_1,layer_SuiviqualiteauxsuperficiellescompilationIIBSN_2]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_suiviVilleLaRochelleAACdeFraisebois_1,layer_SuiviqualiteauxsuperficiellescompilationIIBSN_2]);
+        });
+        </script>
+    </body>
+</html>
